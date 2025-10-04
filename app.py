@@ -73,26 +73,19 @@ CATEGORICAL_FEATURES = {
 
 # --- Preprocess Input for Pipeline ---
 def preprocess_input(input_df: pd.DataFrame):
-    # Add missing numerical columns (if any)
     for col in NUM_FEATURES:
         if col not in input_df.columns:
             input_df[col] = 0.0
-    # Add missing categorical columns
     for feature, categories in CATEGORICAL_FEATURES.items():
         if feature not in input_df.columns:
             input_df[feature] = categories[0]
 
-    # One-hot encode categorical features
     df_processed = pd.get_dummies(input_df)
-    
-    # Ensure pipeline features exist
     if hasattr(pipeline, 'feature_names_in_') and pipeline.feature_names_in_ is not None:
         for col in pipeline.feature_names_in_:
             if col not in df_processed.columns:
                 df_processed[col] = 0
-        # Reorder columns as per pipeline
         df_processed = df_processed[list(pipeline.feature_names_in_)]
-    
     return df_processed
 
 # --- Generate Simple Insights ---
@@ -182,7 +175,7 @@ def main():
 
             # --- Improved Probability Interpretation ---
             st.subheader("🎯 Prediction Result")
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns([2, 1])
             with col1:
                 if proba >= 0.8:
                     st.success("✅ CONVERSION IS HIGHLY LIKELY")
@@ -197,6 +190,13 @@ def main():
             with col2:
                 st.metric("Probability of Conversion", f"{proba:.2%}")
 
+            # --- Visual Probability Bar ---
+            st.markdown("### 📊 Conversion Probability Indicator")
+            progress_value = float(proba)
+            progress_color = "green" if proba >= 0.8 else "orange" if proba >= 0.5 else "red"
+            st.progress(progress_value)
+
+            # --- Key Conversion Drivers ---
             st.subheader("💡 Key Conversion Drivers")
             insights = generate_insights(raw_input)
             col1, col2 = st.columns(2)
