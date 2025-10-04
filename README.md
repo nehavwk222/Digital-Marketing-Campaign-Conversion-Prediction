@@ -1,4 +1,5 @@
-💡 Project Overview and Goal
+## 💡 Project Overview and Goal
+
 The core objective is to develop a robust machine learning model that predicts customer conversions based on various demographic and engagement factors.
 
 By accurately identifying potential converters, this solution provides a critical advantage in the highly competitive digital marketing landscape.
