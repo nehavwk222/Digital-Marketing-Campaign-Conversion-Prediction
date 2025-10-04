@@ -130,7 +130,8 @@ def main():
     st.title("🎯 Digital Marketing Conversion Predictor")
     st.markdown("Enter the **10 key metrics** below to get a conversion prediction.")
 
-    if pipeline is None: return
+    if pipeline is None: 
+        return
 
     with st.form("conversion_form", clear_on_submit=False):
         st.subheader("Campaign Strategy & Channels")
@@ -178,18 +179,21 @@ def main():
 
         if final_input is not None and not final_input.empty:
             proba = pipeline.predict_proba(final_input)[:,1][0]
-            pred_class = pipeline.predict(final_input)[0]
 
+            # --- Improved Probability Interpretation ---
             st.subheader("🎯 Prediction Result")
             col1, col2 = st.columns(2)
             with col1:
-                if pred_class==1:
+                if proba >= 0.8:
                     st.success("✅ CONVERSION IS HIGHLY LIKELY")
                     st.markdown("**Action:** Prioritize this segment for immediate high-value outreach!")
                     st.balloons()
+                elif proba >= 0.5:
+                    st.warning("⚠️ CONVERSION MODERATELY LIKELY")
+                    st.markdown("**Action:** Engage further — test higher-value offers or retargeting.")
                 else:
-                    st.error("CONVERSION IS UNLIKELY")
-                    st.markdown("**Action:** Consider reallocating budget or changing campaign type.")
+                    st.error("❌ CONVERSION UNLIKELY")
+                    st.markdown("**Action:** Consider reallocating budget or refining audience targeting.")
             with col2:
                 st.metric("Probability of Conversion", f"{proba:.2%}")
 
