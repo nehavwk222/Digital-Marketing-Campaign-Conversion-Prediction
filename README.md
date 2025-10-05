@@ -16,7 +16,7 @@ The goal is to build a predictive model that identifies which customers are most
 
 ## Project Workflow
 
-1. **Data Preprocessing:** Handling nulls, encoding categorical variables, treating outliers.  
+1. **Data Preprocessing:** Handling nulls, encoding categorical variables.  
 2. **Exploratory Data Analysis (EDA):** Generating visuals and insights from campaign and customer data.  
 3. **Feature Engineering:** Creating new features to enhance model performance.  
 4. **Model Training:** Training Logistic Regression, Decision Tree, Random Forest, and Gradient Boosting classifiers.  
@@ -28,7 +28,7 @@ The goal is to build a predictive model that identifies which customers are most
 
 - **Programming Language:** Python 3.11  
 - **Libraries:** Pandas, NumPy, Scikit-Learn, Matplotlib, Seaborn, Streamlit  
-- **IDE/Tools:** VS Code, Jupyter Notebook, Power BI for dashboards  
+- **IDE/Tools:** Jupyter Notebook, Power BI for dashboards  
 - **Model File:** `conversion_pipeline.joblib`  
 
 ---
